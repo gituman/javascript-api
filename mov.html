@@ -1,0 +1,31 @@
+<!doctype html> 
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<nav>
+             
+    <ul>
+           
+     <li><a href="index.HTML">HOME</a></li>
+    
+           <li><a href="api.html">WEATHER CHECKER</a></li>
+           <li><a href="mov.html">MOVIE CHECKER</a></li>
+           
+   </ul>
+</nav>
+
+<h1>ENTER MOVIE NAME</h1>
+<input onkeyup="getanswer(document.getElementById('qurybox').value)" id="qurybox"> <div id="answer"></div> <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+</script> 
+<script> var data;
+function getanswer(q){
+$.get("https://www.omdbapi.com/?s="+q+"&apikey=5df003c6", function(rawdata){
+var rawstring =JSON.stringify(rawdata);
+data =JSON.parse(rawstring);
+var title = data.Search[0].Title;
+var year = data.Search[0].Year; 
+var imdburl="https://www.imdb.com/title/"+data.Search[0].imdbID+"/";
+
+var posterurl =data.Search[0].Poster;
+document.getElementById('answer').innerHTML="<h1>"+title+"</h1><br> <img src= '"+posterurl+"'><br><p> Year Released:"+year+"</p> <br> <p> IMDB page: <a href='"+imdburl+"'target='_blank'>"+imdburl+"</a></p>"; }); }</script>
